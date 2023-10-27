@@ -45,7 +45,10 @@
                 str(e.target);
             } else {
                 simulateKeyPress(str)
-                if(!kp) div.hidden = 'hidden'
+                if(!kp){
+                    setTimeout(simulateKeyUp,27.57,str);
+                    div.hidden = 'hidden'  
+                } 
             }
         }
     }
