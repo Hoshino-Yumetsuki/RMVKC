@@ -14,7 +14,6 @@
     div.className = 'visualkeyboard'
     var ekD,ekU={};
     function simulateKeyPress(e) {
-        console.log(e);
         if(ekU[e]) return;
         ekD = new KeyboardEvent("keydown", {
             keyCode: e,
@@ -51,7 +50,6 @@
         }
     }
     function simulateKeyUp(e){
-        console.log(e);
         if(ekU[e]){
             var k = new KeyboardEvent("keyup", {
                 keyCode: e,
