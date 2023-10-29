@@ -13,6 +13,8 @@ rockerDiam=160  默认
 keyA='{"x":"590","y":"540","width":"86","height":"56","value":"90","text":"A"}' 
 
 keyB='{"x":"700","y":"540","width":"86","height":"56","value":"88","text":"B"}'
+
+s 是否修改速度
 ### 使用方法
 javascript:void(document.body.appendChild(document.createElement('script')).src='//axutebils74.github.io/vK/vk2.js?rockerX=15&rockerY=360')
 
