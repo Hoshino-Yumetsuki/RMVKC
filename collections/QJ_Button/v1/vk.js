@@ -1,3 +1,13 @@
+﻿Input.pressKey = function(code) {
+    let evt = document.createEvent("UIEvents");
+    evt.keyCode = 37;
+    evt.initEvent("keydown", true, true);
+    document.body.dispatchEvent(evt);
+    setTimeout(function(){
+        evt.initEvent("keyup", true, true);
+        document.body.dispatchEvent(evt);
+    }, 20);
+}
 if(typeof window.reineQJ_Button === "undefined"){
   (function () {
     window.reineQJ_Button = true
