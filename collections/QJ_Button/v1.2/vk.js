@@ -1,13 +1,3 @@
-Input.pressKey = function(code) {
-    let evt = document.createEvent("UIEvents");
-    evt.keyCode = 37;
-    evt.initEvent("keydown", true, true);
-    document.body.dispatchEvent(evt);
-    setTimeout(function(){
-        evt.initEvent("keyup", true, true);
-        document.body.dispatchEvent(evt);
-    }, 20);
-}
 if(typeof window.reineQJ_Button === "undefined"){
   (function () {
     window.reineQJ_Button = true
@@ -43,6 +33,7 @@ if(typeof window.reineQJ_Button === "undefined"){
           l && (parameters[l] = decodeURIComponent(r))
       } catch (t) {}
     }
+
     var QJ =  {};
     QJ.B = {};
     //=============================================================================
@@ -63,14 +54,14 @@ if(typeof window.reineQJ_Button === "undefined"){
       //0全部 1除方向 2方向
       if (newZoom >= 0) NBRealZoom = newZoom;
       if (type == 2) {
-        for (var i in NBButtonList) {
+        for (var i=0;i<NBButtonList.length;i++) {
           if (NBButtonList[i].DivX) {
             NBButtonList[i].refreshPosition();
             break;
           }
         }
       } else {
-        for (var i in NBButtonList) {
+        for (var i=0;i<NBButtonList.length;i++) {
           if (type == 1 && NBButtonList[i].DivX) continue;
           NBButtonList[i].refreshPosition();
         }
@@ -123,6 +114,7 @@ if(typeof window.reineQJ_Button === "undefined"){
       return img;
     };
 
+
     var specialMode = eval(parameters['specialMode']) || false;
     var button = eval(parameters['button']) || [];
     var dirButton = specialMode ? JsonEx.parse(parameters['dirButton']) : QJ.B.loadDetailData(JsonEx.parse(parameters['dirButton']));
@@ -139,9 +131,9 @@ if(typeof window.reineQJ_Button === "undefined"){
     if (specialMode) {
       (function () {
         d.push(dirButton);
-        for (var data in button) d.push(JsonEx.parse(button[data]));
-        for (var data in d) {
-          data = QJ.B.loadDetailData(d[data]);
+        for (var data=0;data<button.length;data++) d.push(JsonEx.parse(button[data]));
+        for (var j=0;j<d.length;j++) {
+          var data = QJ.B.loadDetailData(d[j]);
           if (data.name) loadImage(data, true);
           if (data.namex) loadImage(data, false);
         }
@@ -165,7 +157,7 @@ if(typeof window.reineQJ_Button === "undefined"){
     };
     QJ.B.setButton = function (id, scale, x, y, opacity) {
       var data = null;
-      for (var i in NBButtonList) {
+      for (var i=0;i<NBButtonList.length;i++) {
         if (NBButtonList[i].Data.id == id) {
           data = NBButtonList[i];
           break;
@@ -286,11 +278,11 @@ if(typeof window.reineQJ_Button === "undefined"){
         if (!specialMode) {
           var detail;
           d.push(dirButton);
-          for (var data in button) {
+          for (var data=0;data<button.length;data++) {
             d.push(QJ.B.loadDetailData(JsonEx.parse(button[data])));
           }
-          for (var i in d) {
-            i = d[i];
+          for (var _i=0;_i<d.length;_i++) {
+            var i = d[_i];
             if (i.namex && typeof i.namex == 'string' && i.namex.length > 0) {
               QJ.B.lsBitmapRem[i.namex] = ImageManager.loadButtonImage(i.namex);
             }
@@ -313,11 +305,11 @@ if(typeof window.reineQJ_Button === "undefined"){
         if (!specialMode) {
           var detail;
           d.push(dirButton);
-          for (var data in button) {
+          for (var data=0;data<button.length;data++) {
             d.push(QJ.B.loadDetailData(JsonEx.parse(button[data])));
           }
-          for (var _i in d) {
-            _i = d[_i];
+          for (var i=0;i<d.length;i++) {
+            var _i = d[i];
             if (_i.namex && typeof _i.namex == 'string' && _i.namex.length > 0) {
               QJ.B.lsBitmapRem[_i.namex] = ImageManager.loadButtonImage(_i.namex);
             }
@@ -421,7 +413,7 @@ if(typeof window.reineQJ_Button === "undefined"){
       this.Data.textHide = this.Data.textHide ? eval(this.Data.textHide) : false;
       if (!!data.showOn) {
         var moreScene = data.showOn.split("|");
-        for (var i in moreScene) this.Data["showOn" + moreScene[i]] = true;
+        for (var i=0;i<moreScene.length;i++) this.Data["showOn" + moreScene[i]] = true;
       }
       this.Div = loadDiv(data, true);
       this.DivX = loadDiv(data, false);
@@ -737,7 +729,7 @@ if(typeof window.reineQJ_Button === "undefined"){
       this.Data = data;
       this.Data.textHide = this.Data.textHide ? eval(this.Data.textHide) : false;
       var moreScene = data.showOn.split("|");
-      for (var i in moreScene) this.Data["showOn" + moreScene[i]] = true;
+      for (var i=0;i<moreScene.length;i++) this.Data["showOn" + moreScene[i]] = true;
       this.Div = loadDiv(data, false);
       this.Press = false;
       this.PressAnim = false;
@@ -922,7 +914,7 @@ if(typeof window.reineQJ_Button === "undefined"){
     var NB_Scene_Base_update = Scene_Base.prototype.update;
     Scene_Base.prototype.update = function () {
       NB_Scene_Base_update.call(this);
-      for (var data in NBButtonList) NBButtonList[data].update();
+      for (var data=0;data<NBButtonList.length;data++) NBButtonList[data].update();
       if (!TouchInput.isPressed()) forBidButtonDesTemp = false;
     };
     var NB_Scene_Map_update = Scene_Map.prototype.update;
@@ -931,21 +923,21 @@ if(typeof window.reineQJ_Button === "undefined"){
       if (QJ.B.remember) {
         QJ.B.remember = false;
         if ($gameVariables._QJBRememberSize) setRealZoom($gameVariables._QJBRememberSize, 0);
-        for (var i in NBButtonList) {
+        for (var i=0;i<NBButtonList.length;i++) {
           NBButtonList[i].loadRemember();
         }
       }
     };
     function refreshF(){
-      for(var i in NBButtonList){
+      for(var i=0;i<NBButtonList.length;i++){
         if(!NBButtonList[i].Data.widthx && !NBButtonList[i].Data.width) return setTimeout(refreshF,100);
       }
-      NBButtonList.forEach(function(a){a.refreshPosition()});
       if(parameters.mod){
         window.addEventListener('resize', function () {
           setRealZoom(-1, 0);
         })
       }
+      NBButtonList.forEach(function(a){a.refreshPosition()});
     }
     function reshow(){
       if($gameVariables){ 
