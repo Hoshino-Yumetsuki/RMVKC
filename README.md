@@ -18,5 +18,5 @@ s 是否修改速度
 ### 使用方法
 javascript:void(document.body.appendChild(document.createElement('script')).src='//<js_url>?rockerX=15&rockerY=360')
 # 引用
-### XdRs_VirtualButton (vk2.js 侵删)
+### XdRs_VirtualButton
 [https://rpg.blue/thread-486591-1-1.html](https://rpg.blue/thread-486591-1-1.html)
